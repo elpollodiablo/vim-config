@@ -50,7 +50,7 @@ let g:ycm_autoclose_preview_window_after_completion=1
 let mapleader=" "
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "
-"call togglebg#map("<F5>")
+call togglebg#map("<F5>")
 "colorscheme zenburn
 "set guifont=Monaco:h14
 
@@ -67,7 +67,7 @@ py << EOF
 import os.path
 import sys
 import vim
-if 'VIRTUA_ENV' in os.environ:
+if 'VIRTUAL_ENV' in os.environ:
   project_base_dir = os.environ['VIRTUAL_ENV']
   sys.path.insert(0, project_base_dir)
   activate_this = os.path.join(project_base_dir,'bin/activate_this.py')
