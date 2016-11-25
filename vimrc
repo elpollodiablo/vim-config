@@ -123,4 +123,5 @@ nnoremap <space> za
 "----------Stop python PEP 8 stuff--------------
 
 "js stuff"
+au BufNewFile *.js,*.es6,*.es7,*.es5,*.json set filetype=javascript
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
