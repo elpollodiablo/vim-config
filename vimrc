@@ -33,6 +33,7 @@ Plugin 'klen/rope-vim'
 Plugin 'ervandew/supertab'
 ""code folding
 Plugin 'tmhedberg/SimpylFold'
+set nofoldenable
 
 "Colors!!!
 Plugin 'altercation/vim-colors-solarized'
