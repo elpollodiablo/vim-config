@@ -66,6 +66,10 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 "I don't like swap files
 set noswapfile
 
+"lets have mouse-resizable panes
+set mouse=a
+set ttymouse=xterm2
+
 "turn on numbering
 set nu
 
