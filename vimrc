@@ -39,6 +39,8 @@ set nofoldenable
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'jnurmine/Zenburn'
 
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 call vundle#end()
 
 "split navigations
@@ -98,6 +100,9 @@ au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
 au BufRead,BufNewFile *.py,*pyw set shiftwidth=4
 au BufRead,BufNewFile *.py,*.pyw set expandtab
 au BufRead,BufNewFile *.py set softtabstop=4
+
+"lets have sane paragraphs when we want them
+set textwidth=80
 
 " Use the below highlight group when displaying bad whitespace is desired.
 highlight BadWhitespace ctermbg=red guibg=red
