@@ -2,7 +2,8 @@
 
 mkdir -p ~/.vim/bundle/
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-ln vimrc ~/.vim/vimrc
+rm -f ~/.vim/vimrc
+ln -s `pwd`/vimrc ~/.vim/vimrc
 vim +PluginInstall +qall
 
 echo "dont forget to install / update YoucompleteMe"
