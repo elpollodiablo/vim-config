@@ -49,6 +49,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+"pydiction
+let g:pydiction_location = '~/.vim/bundle/Pydiction/complete-dict'
+
 filetype plugin indent on    " enables filetype detection
 let g:SimpylFold_docstring_preview = 1
 
