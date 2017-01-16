@@ -25,6 +25,9 @@ Plugin 'vim-scripts/Pydiction'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'scrooloose/syntastic'
 
+"coffeescript
+Plugin 'kchmck/vim-coffee-script'
+
 "auto-completion stuff
 "Plugin 'klen/python-mode'
 Plugin 'Valloric/YouCompleteMe'
@@ -105,7 +108,8 @@ au BufRead,BufNewFile *.py,*.pyw set expandtab
 au BufRead,BufNewFile *.py set softtabstop=4
 
 "lets have sane paragraphs when we want them
-set textwidth=80
+autocmd FileType markdown set textwidth=80
+
 
 " Use the below highlight group when displaying bad whitespace is desired.
 highlight BadWhitespace ctermbg=red guibg=red
@@ -144,3 +148,6 @@ nnoremap <space> za
 "js stuff"
 au BufNewFile *.js,*.es6,*.es7,*.es5,*.json set filetype=javascript
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+
+au BufRead,BufNewFile *.coffee set softtabstop=2
+au BufRead,BufNewFile *.coffee set shiftwidth=2
