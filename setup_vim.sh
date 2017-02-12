@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -f `which lsb_release` ]; then
+if [ -f "`which lsb_release`" ]; then
 	system=`lsb_release -s -id |head -1`
 else
 	system="osx";
@@ -25,7 +25,7 @@ fi;
 esac
 
 mkdir -p ~/.vim/bundle/
-if [ -f ~/.vim/bundle/Vundle.vim ]; then
+if [ -f "~/.vim/bundle/Vundle.vim" ]; then
 	pushd ~/.vim/bundle/Vundle.vim
 	git pull
 	popd;
