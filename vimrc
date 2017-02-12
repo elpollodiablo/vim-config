@@ -41,6 +41,7 @@ Plugin 'jnurmine/Zenburn'
 
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'jeetsukumaran/vim-buffergator'
 call vundle#end()
 
 "split navigations
