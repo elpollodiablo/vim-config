@@ -45,6 +45,7 @@ Plugin 'jnurmine/Zenburn'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'tpope/vim-obsession'
 call vundle#end()
 
 "split navigations
@@ -78,6 +79,9 @@ set noswapfile
 "lets have mouse-resizable panes
 set mouse=a
 set ttymouse=xterm2
+
+"lets see the current line
+set cursorline
 
 "turn on numbering
 set nu
