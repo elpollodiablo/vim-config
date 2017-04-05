@@ -25,21 +25,31 @@ fi;
 esac
 
 mkdir -p ~/.vim/bundle/
-if [ -f "~/.vim/bundle/Vundle.vim" ]; then
+
+if [ -d ~/.vim/bundle/Vundle.vim ]; then
+	echo "updating vundle"
 	pushd ~/.vim/bundle/Vundle.vim
 	git pull
 	popd;
 else
+	echo "installing vundle"
 	mkdir -p ~/.vim ~/.vim/bundle
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim;
 fi;
 
 rm -f ~/.vim/vimrc
-ln -s `pwd`/vimrc ~/.vim/vimrc
-vim +PluginInstall +qall
-pushd ~/.vim/bundle/YouCompleteMe
-./install.py --clang-completer --tern-completer
-popd
+SCRIPT_DIR=`dirname $0`
+FULL_DIR="`( cd \"$SCRIPT_DIR\" && pwd )`"
+ln -s $FULL_DIR/vimrc ~/.vim/vimrc
 
+vim +PluginInstall +qall
+
+if [ -f "/root/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so" ]; then
+	echo "ycm already installed"
+else
+	pushd ~/.vim/bundle/YouCompleteMe
+	./install.py --clang-completer --tern-completer
+	popd;
+fi;
 echo "https://github.com/j1z0/dotfiles.git"
 
