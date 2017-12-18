@@ -28,6 +28,10 @@ Plugin 'scrooloose/syntastic'
 "coffeescript
 Plugin 'kchmck/vim-coffee-script'
 
+"typescript
+Plugin 'Quramy/tsuquyomi'
+Plugin 'leafgarland/typescript-vim'
+
 "auto-completion stuff
 "Plugin 'klen/python-mode'
 Plugin 'Valloric/YouCompleteMe'
@@ -46,6 +50,8 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'tpope/vim-obsession'
+Plugin 'dhruvasagar/vim-prosession'
+Plugin 'mhinz/vim-startify'
 call vundle#end()
 
 "split navigations
@@ -156,3 +162,7 @@ autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 
 au BufRead,BufNewFile *.coffee set softtabstop=2
 au BufRead,BufNewFile *.coffee set shiftwidth=2
+
+" Add full file path to your existing statusline
+set laststatus=2
+set statusline=%.30F%h%m%r\ @%2c,%3l/%3L\ %{strlen(&ft)?&ft:'No\ Filetype'}\ %{ObsessionStatus('Session','No\ Session')} 
