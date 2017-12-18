@@ -5,23 +5,24 @@ if [ -f "`which lsb_release`" ]; then
 else
 	system="osx";
 fi;
-	case $system in
-    		Ubuntu)
-			sudo apt-get remove vim-tiny vim-nox vim
-			sudo apt-get install vim-nox-py2 cmake nodejs python-dev python3-dev build-essential;
-			sudo npm install -g typescript
-			;;
-		Debian)
-			sudo apt-get remove vim-tiny vim
-			sudo apt-get install vim-nox cmake nodejs python-dev python3-dev build-essential;
-			;;
-		osx)
-			brew install cmake nodejs
-			brew install macvim --with-override-system-vim
-			;;
-		*)
-			echo "couldn't identify system"
-			exit 1
+case $system in
+	Ubuntu)
+		sudo apt-get remove vim-tiny vim-nox vim
+		sudo apt-get install vim-nox-py2 cmake nodejs python-dev python3-dev build-essential;
+		sudo npm install -g typescript
+		;;
+	Debian)
+		sudo apt-get remove vim-tiny vim
+		sudo apt-get install vim-nox cmake nodejs python-dev python3-dev build-essential;
+		;;
+	osx)
+		brew remove vim
+		brew cleanup
+		brew install vim --with-python3 --with-override-system-vim
+		;;
+	*)
+		echo "couldn't identify system"
+		exit 1
 esac
 
 mkdir -p ~/.vim/bundle/
