@@ -15,7 +15,7 @@ Plugin 'kien/ctrlp.vim'
 
 "html
 "  isnowfy only compatible with python not python3
-Plugin 'isnowfy/python-vim-instant-markdown'
+"Plugin 'isnowfy/python-vim-instant-markdown'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'nelstrom/vim-markdown-preview'
@@ -35,7 +35,7 @@ Plugin 'leafgarland/typescript-vim'
 "auto-completion stuff
 "Plugin 'klen/python-mode'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'klen/rope-vim'
+"Plugin 'klen/rope-vim'
 "Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/supertab'
 ""code folding
@@ -93,7 +93,7 @@ set cursorline
 set nu
 
 "python with virtualenv support
-py << EOF
+py3 << EOF
 import os.path
 import sys
 import vim
