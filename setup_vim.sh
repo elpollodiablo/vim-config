@@ -11,6 +11,10 @@ case $system in
 		sudo apt-get install -y vim-nox-py2 cmake nodejs python-dev python3-dev build-essential;
 		sudo npm install -g typescript
 		;;
+	Raspian)
+		sudo apt-get remove -y vim-tiny vim
+		sudo apt-get install -y vim-nox cmake python-dev python3-dev build-essential;
+		;;
 	Debian)
 		sudo apt-get remove -y vim-tiny vim
 		sudo apt-get install -y vim-nox cmake nodejs python-dev python3-dev build-essential;
