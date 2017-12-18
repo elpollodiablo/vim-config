@@ -7,13 +7,13 @@ else
 fi;
 case $system in
 	Ubuntu)
-		sudo apt-get remove vim-tiny vim-nox vim
-		sudo apt-get install vim-nox-py2 cmake nodejs python-dev python3-dev build-essential;
+		sudo apt-get remove -y vim-tiny vim-nox vim
+		sudo apt-get install -y vim-nox-py2 cmake nodejs python-dev python3-dev build-essential;
 		sudo npm install -g typescript
 		;;
 	Debian)
-		sudo apt-get remove vim-tiny vim
-		sudo apt-get install vim-nox cmake nodejs python-dev python3-dev build-essential;
+		sudo apt-get remove -y vim-tiny vim
+		sudo apt-get install -y vim-nox cmake nodejs python-dev python3-dev build-essential;
 		;;
 	osx)
 		brew remove vim
