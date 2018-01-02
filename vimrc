@@ -97,6 +97,9 @@ py3 << EOF
 import os.path
 import sys
 import vim
+def execfile(filename, *args, **kwargs):
+    with open(filename) as fp:
+            exec(fp.read(), *args, **kwargs)
 if 'VIRTUAL_ENV' in os.environ:
   project_base_dir = os.environ['VIRTUAL_ENV']
   sys.path.insert(0, project_base_dir)
