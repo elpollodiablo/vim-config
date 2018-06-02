@@ -32,6 +32,9 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'Quramy/tsuquyomi'
 Plugin 'leafgarland/typescript-vim'
 
+"Ionic and angular
+Plugin 'akz92/vim-ionic2'
+
 "auto-completion stuff
 "Plugin 'klen/python-mode'
 Plugin 'Valloric/YouCompleteMe'
@@ -46,12 +49,18 @@ set nofoldenable
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'jnurmine/Zenburn'
 
+"table editing
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'jeetsukumaran/vim-buffergator'
-Plugin 'tpope/vim-obsession'
-Plugin 'dhruvasagar/vim-prosession'
-Plugin 'mhinz/vim-startify'
+
+"better session saving/restore
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
+set sessionoptions+=tabpages,globals
+
+"renaming tabs
+Plugin 'gcmt/taboo.vim'
 call vundle#end()
 
 "split navigations
@@ -117,13 +126,10 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
 
 "spaces for indents
-au BufRead,BufNewFile *.py,*pyw set shiftwidth=4
-au BufRead,BufNewFile *.py,*.pyw set expandtab
-au BufRead,BufNewFile *.py set softtabstop=4
+au BufRead,BufNewFile *.py,*pyw set shiftwidth=4 foldmethod=indent autoindent shiftwidth=4 tabstop=4 expandtab softtabstop=4 autoindent
 
 "lets have sane paragraphs when we want them
 autocmd FileType markdown set textwidth=80
-
 
 " Use the below highlight group when displaying bad whitespace is desired.
 highlight BadWhitespace ctermbg=red guibg=red
@@ -137,7 +143,7 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 au BufRead,BufNewFile *.py,*.pyw, set textwidth=100
 
 " Use UNIX (\n) line endings.
-au BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
 
 " Set the default file encoding to UTF-8:
 set encoding=utf-8
@@ -146,26 +152,24 @@ set encoding=utf-8
 let python_highlight_all=1
 syntax on
 
-" Keep indentation level from previous line:
-autocmd FileType python set autoindent
-
 " make backspaces more powerfull
 set backspace=indent,eol,start
 
 
 "Folding based on indentation:
-autocmd FileType python set foldmethod=indent
+autocmd FileType python set foldmethod=indent autoindent shiftwidth=4 tabstop=4 expandtab softtabstop=4 autoindent
 "use space to open folds
 nnoremap <space> za 
 "----------Stop python PEP 8 stuff--------------
 
 "js stuff"
-au BufNewFile *.js,*.es6,*.es7,*.es5,*.json set filetype=javascript
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+au BufRead,BufNewFile *.js,*.es6,*.es7,*.es5,*.json set filetype=javascript shiftwidth=2 tabstop=2 expandtab softtabstop=2 autoindent foldmethod=indent
+au BufRead,BufNewFile *.ts set filetype=typescript shiftwidth=2 tabstop=2 expandtab softtabstop=2 autoindent foldmethod=indent
+autocmd FileType javascript set shiftwidth=2 tabstop=2 expandtab softtabstop=2 autoindent foldmethod=indent
+autocmd FileType typescript set shiftwidth=2 tabstop=2 expandtab softtabstop=2 autoindent foldmethod=indent
 
-au BufRead,BufNewFile *.coffee set softtabstop=2
-au BufRead,BufNewFile *.coffee set shiftwidth=2
+au BufRead,BufNewFile *.coffee set softtabstop=2 shiftwidth=2 tabstop=2 expandtab softtabstop=2 autoindent foldmethod=indent
 
 " Add full file path to your existing statusline
 set laststatus=2
-set statusline=%.30F%h%m%r\ @%2c,%3l/%3L\ %{strlen(&ft)?&ft:'No\ Filetype'}\ %{ObsessionStatus('Session','No\ Session')} 
+set statusline=%.30F%h%m%r\ @%2c,%3l/%3L\ %{strlen(&ft)?&ft:'No\ Filetype'} 
