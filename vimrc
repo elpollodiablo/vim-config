@@ -37,7 +37,7 @@ Plugin 'akz92/vim-ionic2'
 
 "auto-completion stuff
 "Plugin 'klen/python-mode'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 "Plugin 'klen/rope-vim'
 "Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/supertab'
@@ -48,6 +48,9 @@ set nofoldenable
 "Colors!!!
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'jnurmine/Zenburn'
+
+"Swap windows
+Plugin 'wesQ3/vim-windowswap'
 
 "table editing
 Plugin 'godlygeek/tabular'
