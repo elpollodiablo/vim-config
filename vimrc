@@ -175,4 +175,92 @@ au BufRead,BufNewFile *.coffee set softtabstop=2 shiftwidth=2 tabstop=2 expandta
 
 " Add full file path to your existing statusline
 set laststatus=2
-set statusline=%.30F%h%m%r\ @%2c,%3l/%3L\ %{strlen(&ft)?&ft:'No\ Filetype'} 
+set statusline=%.30F%h%m%r\ @%2c,%3l/%3L\ %{strlen(&ft)?&ft:'No\ Filetype'}
+
+let g:ComponentDir = '~/workspace/things-app4/src/app/components'
+command! -nargs=1 ComponentTab tabnew | execute 'lcd' . g:ComponentDir . '/<args>' | sv <args>.component.spec.ts | vs <args>.component.ts | wincmd j | e <args>.component.scss | vs <args>.component.html | TabooRename <args>_co
+
+let g:PageDir = '~/workspace/things-app4/src/app/pages'
+command! -nargs=1 PageTab tabnew | execute 'lcd' . g:PageDir . '/<args>' | sv <args>.page.spec.ts | vs <args>.page.ts | wincmd j | e <args>.module.ts | vs <args>.page.html | TabooRename <args>_pa
+
+let g:ServiceDir = '~/workspace/things-app4/src/app'
+command! -nargs=1 ServiceTab tabnew | execute 'lcd' . g:ServiceDir | e <args>/<args>.service.spec.ts | vs <args>/<args>.service.ts | TabooRename <args>_mo
+" Rename.vim  -  Rename a buffer within Vim and on the disk
+"
+" Copyright June 2007-2011 by Christian J. Robinson <heptite@gmail.com>
+"
+" Distributed under the terms of the Vim license.  See ":help license".
+"
+" Usage:
+"
+" :Rename[!] {newname}
+
+command! -nargs=* -complete=file -bang Rename call Rename(<q-args>, '<bang>')
+
+function! Rename(name, bang)
+	let l:name    = a:name
+	let l:oldfile = expand('%:p')
+
+	if bufexists(fnamemodify(l:name, ':p'))
+		if (a:bang ==# '!')
+			silent exe bufnr(fnamemodify(l:name, ':p')) . 'bwipe!'
+		else
+			echohl ErrorMsg
+			echomsg 'A buffer with that name already exists (use ! to override).'
+			echohl None
+			return 0
+		endif
+	endif
+
+	let l:status = 1
+
+	let v:errmsg = ''
+	silent! exe 'saveas' . a:bang . ' ' . l:name
+
+	if v:errmsg =~# '^$\|^E329'
+		let l:lastbufnr = bufnr('$')
+
+		if expand('%:p') !=# l:oldfile && filewritable(expand('%:p'))
+			if fnamemodify(bufname(l:lastbufnr), ':p') ==# l:oldfile
+				silent exe l:lastbufnr . 'bwipe!'
+			else
+				echohl ErrorMsg
+				echomsg 'Could not wipe out the old buffer for some reason.'
+				echohl None
+				let l:status = 0
+			endif
+
+			if delete(l:oldfile) != 0
+				echohl ErrorMsg
+				echomsg 'Could not delete the old file: ' . l:oldfile
+				echohl None
+				let l:status = 0
+			endif
+		else
+			echohl ErrorMsg
+			echomsg 'Rename failed for some reason.'
+			echohl None
+			let l:status = 0
+		endif
+	else
+		echoerr v:errmsg
+		let l:status = 0
+	endif
+
+	return l:status
+endfunction
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
+set hlsearch
+"/\s\+$
+"/\t
+"/\s\+\%#\@<!$/
+set autoread
+autocmd FocusGained * checktime
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+\%#\@<!$/
+highlight Unwanted ctermbg=red guibg=red
+2match Unwanted /\t/
