@@ -11,7 +11,9 @@ Plugin 'tpope/vim-fugitive'
 "filesystem
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'kien/ctrlp.vim' 
+Plugin 'kien/ctrlp.vim'
+
+Plugin 'stephpy/vim-yaml'
 
 "html
 "  isnowfy only compatible with python not python3
@@ -67,6 +69,7 @@ Plugin 'gcmt/taboo.vim'
 call vundle#end()
 
 "split navigations
+" das ist bloedsinn, damit kannst du nicht umgehen
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -105,19 +108,19 @@ set cursorline
 set nu
 
 "python with virtualenv support
-py3 << EOF
-import os.path
-import sys
-import vim
-def execfile(filename, *args, **kwargs):
-    with open(filename) as fp:
-            exec(fp.read(), *args, **kwargs)
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  sys.path.insert(0, project_base_dir)
-  activate_this = os.path.join(project_base_dir,'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
+"py3 << EOF
+"import os.path
+"import sys
+"import vim
+"def execfile(filename, *args, **kwargs):
+"    with open(filename) as fp:
+"            exec(fp.read(), *args, **kwargs)
+"if 'VIRTUAL_ENV' in os.environ:
+"  project_base_dir = os.environ['VIRTUAL_ENV']
+"  sys.path.insert(0, project_base_dir)
+"  activate_this = os.path.join(project_base_dir,'bin/activate_this.py')
+"  execfile(activate_this, dict(__file__=activate_this))
+"EOF
 
 "it would be nice to set tag files by the active virtualenv here
 ":set tags=~/mytags "tags for ctags and taglist
@@ -172,7 +175,106 @@ autocmd FileType javascript set shiftwidth=2 tabstop=2 expandtab softtabstop=2 a
 autocmd FileType typescript set shiftwidth=2 tabstop=2 expandtab softtabstop=2 autoindent foldmethod=indent
 
 au BufRead,BufNewFile *.coffee set softtabstop=2 shiftwidth=2 tabstop=2 expandtab softtabstop=2 autoindent foldmethod=indent
+function! PasteForStatusline()
+    let paste_status = &paste
+    if paste_status == 1
+        return "PASTE PASTE PASTE PASTE PASTE PASTE PASTE PASTE PASTE "
+    else
+        return ""
+    endif
+endfunction
 
 " Add full file path to your existing statusline
 set laststatus=2
-set statusline=%.30F%h%m%r\ @%2c,%3l/%3L\ %{strlen(&ft)?&ft:'No\ Filetype'} 
+set statusline=%{PasteForStatusline()}%.30F%h%m%r\ @%2c,%3l/%3L\ %{strlen(&ft)?&ft:'No\ Filetype'}
+
+let g:ComponentDir = '~/things-app4/things-app/src/app/components'
+command! -nargs=1 ComponentTab tabnew | execute 'lcd' . g:ComponentDir . '/<args>' | sv <args>.component.spec.ts | vs <args>.component.ts | wincmd j | e <args>.component.scss | vs <args>.component.html | TabooRename <args>_co
+
+let g:WFComponentDir = '~/things-app4/things-app/src/app/workflow_components'
+command! -nargs=1 WFComponentTab tabnew | execute 'lcd' . g:WFComponentDir . '/<args>' | sv <args>.component.spec.ts | vs <args>.component.ts | wincmd j | e <args>.component.scss | vs <args>.component.html | TabooRename <args>_wfco
+
+let g:PageDir = '~/things-app4/things-app/src/app/pages'
+command! -nargs=1 PageTab tabnew | execute 'lcd' . g:PageDir . '/<args>' | sv <args>.page.spec.ts | vs <args>.page.ts | wincmd j | e <args>.module.ts | vs <args>.page.html | TabooRename <args>_pa
+
+let g:ServiceDir = '~/things-app4/things-app/src/app'
+command! -nargs=1 ServiceTab tabnew | execute 'lcd' . g:ServiceDir | e <args>/<args>.service.spec.ts | vs <args>/<args>.service.ts | TabooRename <args>_mo
+" Rename.vim  -  Rename a buffer within Vim and on the disk
+"
+" Copyright June 2007-2011 by Christian J. Robinson <heptite@gmail.com>
+"
+" Distributed under the terms of the Vim license.  See ":help license".
+"
+" Usage:
+"
+" :Rename[!] {newname}
+
+command! -nargs=* -complete=file -bang Rename call Rename(<q-args>, '<bang>')
+
+function! Rename(name, bang)
+	let l:name    = a:name
+	let l:oldfile = expand('%:p')
+
+	if bufexists(fnamemodify(l:name, ':p'))
+		if (a:bang ==# '!')
+			silent exe bufnr(fnamemodify(l:name, ':p')) . 'bwipe!'
+		else
+			echohl ErrorMsg
+			echomsg 'A buffer with that name already exists (use ! to override).'
+			echohl None
+			return 0
+		endif
+	endif
+
+	let l:status = 1
+
+	let v:errmsg = ''
+	silent! exe 'saveas' . a:bang . ' ' . l:name
+
+	if v:errmsg =~# '^$\|^E329'
+		let l:lastbufnr = bufnr('$')
+
+		if expand('%:p') !=# l:oldfile && filewritable(expand('%:p'))
+			if fnamemodify(bufname(l:lastbufnr), ':p') ==# l:oldfile
+				silent exe l:lastbufnr . 'bwipe!'
+			else
+				echohl ErrorMsg
+				echomsg 'Could not wipe out the old buffer for some reason.'
+				echohl None
+				let l:status = 0
+			endif
+
+			if delete(l:oldfile) != 0
+				echohl ErrorMsg
+				echomsg 'Could not delete the old file: ' . l:oldfile
+				echohl None
+				let l:status = 0
+			endif
+		else
+			echohl ErrorMsg
+			echomsg 'Rename failed for some reason.'
+			echohl None
+			let l:status = 0
+		endif
+	else
+		echoerr v:errmsg
+		let l:status = 0
+	endif
+
+	return l:status
+endfunction
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
+set hlsearch
+"/\s\+$
+"/\t
+"/\s\+\%#\@<!$/
+set autoread
+autocmd FocusGained * checktime
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+\%#\@<!$/
+highlight Unwanted ctermbg=red guibg=red
+2match Unwanted /\t/
