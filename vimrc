@@ -187,16 +187,16 @@ endfunction
 set laststatus=2
 set statusline=%{PasteForStatusline()}%.30F%h%m%r\ @%2c,%3l/%3L\ %{strlen(&ft)?&ft:'No\ Filetype'}
 
-let g:ComponentDir = '~/things-app4/things-app/src/app/components'
+let g:ComponentDir = '~/workspace/things-app/src/app/components'
 command! -nargs=1 ComponentTab tabnew | execute 'lcd' . g:ComponentDir . '/<args>' | sv <args>.component.spec.ts | vs <args>.component.ts | wincmd j | e <args>.component.scss | vs <args>.component.html | TabooRename <args>_co
 
-let g:WFComponentDir = '~/things-app4/things-app/src/app/workflow_components'
+let g:WFComponentDir = '~/workspace/things-app/src/app/workflow_components'
 command! -nargs=1 WFComponentTab tabnew | execute 'lcd' . g:WFComponentDir . '/<args>' | sv <args>.component.spec.ts | vs <args>.component.ts | wincmd j | e <args>.component.scss | vs <args>.component.html | TabooRename <args>_wfco
 
-let g:PageDir = '~/things-app4/things-app/src/app/pages'
+let g:PageDir = '~/workspace/things-app/src/app/pages'
 command! -nargs=1 PageTab tabnew | execute 'lcd' . g:PageDir . '/<args>' | sv <args>.page.spec.ts | vs <args>.page.ts | wincmd j | e <args>.module.ts | vs <args>.page.html | TabooRename <args>_pa
 
-let g:ServiceDir = '~/things-app4/things-app/src/app'
+let g:ServiceDir = '~/workspace/things-app/src/app'
 command! -nargs=1 ServiceTab tabnew | execute 'lcd' . g:ServiceDir | e <args>/<args>.service.spec.ts | vs <args>/<args>.service.ts | TabooRename <args>_mo
 " Rename.vim  -  Rename a buffer within Vim and on the disk
 "
