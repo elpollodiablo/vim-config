@@ -22,7 +22,7 @@ case $system in
 	osx)
 		brew remove vim
 		brew cleanup
-		brew install vim --with-python3 --with-override-system-vim
+		brew install vim
 		;;
 	*)
 		echo "couldn't identify system"
